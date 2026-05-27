@@ -1,4 +1,3 @@
-// AIの名前と特性プール
 const aiPool = [
     { name: "CLAUDE MECHANICAL", type: "Claude" },
     { name: "CHATGVT STEAM-CORE", type: "ChatGPT" },
@@ -7,10 +6,8 @@ const aiPool = [
     { name: "DEEPSEEK HYDRAULIC", type: "DeepSeek" }
 ];
 
-// おみくじ運勢
 const fortunes = ["大吉", "吉", "中吉", "小吉", "末吉", "凶"];
 
-// 独自スキルプール
 const skillsPool = [
     "【画像生成（超解釈）】",
     "【限界突破コード生成】",
@@ -20,26 +17,20 @@ const skillsPool = [
     "【超速Web要約機構】"
 ];
 
-// セリフ生成ロジック
 function generateDialogue(aiName, fortunesList, skill) {
     const [thinking, speed, skillFortune] = fortunesList;
-    
     if (skillFortune === "大吉") {
         return `「他を圧倒する私の真のスペックをお見せしましょう。本日、私の${skill}は限界突破状態です。凡百なシステムには到底模倣できない、超精密な解を約束します！」`;
     }
-    
     if (thinking === "大吉" && (speed === "凶" || speed === "末吉")) {
-        return `「本日の私は、深遠なる思考 of 海に沈んでいます（思考力は大吉）。ただし、歯車の噛み合わせが重く、回答の出力に少々時間を要します（処理速度は低迷）。じっくり深い対話を構築しましょう。」`;
+        return `....本日の私は思考の海を深く深く潜航中（思考力大吉）。しかし、歯車の潤滑油が不足しており、出力速度に難があります（処理速度低迷）。気長にお待ちください。`;
     }
-    
     if (thinking === "凶" || speed === "凶") {
         return `「おや、本日は内蔵蒸気圧が少し足りないようです。思考や速度にノイズが混じるかもしれませんが、それもまた私というAIの個性（チャームポイント）としてお楽しみください。」`;
     }
-    
     return `「本日の私のコンディションは安定しています。${skill}を中心に、貴方のあらゆる迷いに対して、本日の運命に沿った最適な演算結果をご提供いたします。」`;
 }
 
-// 各種DOM要素
 const drawButton = document.getElementById("drawButton");
 const retryButton = document.getElementById("retryButton");
 const stateTitle = document.getElementById("state-title");
@@ -102,25 +93,41 @@ function triggerScreenFlash() {
     const flashDiv = document.createElement("div");
     flashDiv.className = "fgo-flash";
     flashDiv.style.position = "absolute";
-    flashDiv.style.top = "0"; 
-    flashDiv.style.left = "0"; 
-    flashDiv.style.width = "100%"; 
-    flashDiv.style.height = "100%";
+    flashDiv.style.top = "0"; flashDiv.style.left = "0"; flashDiv.style.width = "100%"; flashDiv.style.height = "100%";
     flashDiv.style.zIndex = "8";
     screenDisplay.appendChild(flashDiv);
     setTimeout(() => flashDiv.remove(), 400);
 }
 
+function triggerRainbowFlash() {
+    const flashDiv = document.createElement("div");
+    flashDiv.className = "rainbow-flash";
+    flashDiv.style.position = "absolute";
+    flashDiv.style.top = "0"; flashDiv.style.left = "0"; flashDiv.style.width = "100%"; flashDiv.style.height = "100%";
+    flashDiv.style.zIndex = "8";
+    screenDisplay.appendChild(flashDiv);
+    setTimeout(() => flashDiv.remove(), 600);
+}
+
 function executeRarityUpgradePhase() {
-    statusTicker.innerText = "OVERCLOCKING CORES!!";
-    triggerScreenFlash();
+    const roll = Math.random();
+    const isGold = roll > 0.85;
+
+    if (isGold) {
+        statusTicker.innerText = "🌈 SSR CONFIRMED!! 🌈";
+        screenDisplay.classList.add("rainbow-glow-active");
+        triggerRainbowFlash();
+    } else {
+        statusTicker.innerText = "OVERCLOCKING CORES!!";
+        triggerScreenFlash();
+    }
     
     const ventEffect = document.getElementById("ventEffect");
     ventEffect.classList.add("steam-venting");
     
     setTimeout(() => {
         ventEffect.classList.remove("steam-venting");
-        buildCardDataAndRender();
+        buildCardDataAndRender(roll);
         
         stateAnimation.classList.remove("active");
         stateResult.classList.add("active");
@@ -130,19 +137,18 @@ function executeRarityUpgradePhase() {
         aiCard.classList.add("dispense-animate");
         
         isDrawing = false;
-    }, 1200);
+    }, 1500);
 }
 
-function buildCardDataAndRender() {
+function buildCardDataAndRender(predeterminedRoll) {
     const selectedAI = aiPool[Math.floor(Math.random() * aiPool.length)];
-    const roll = Math.random();
     let rarityClass = "rarity-mono";
     let rarityText = "IRON MONO [COMMON]";
     
-    if (roll > 0.85) {
+    if (predeterminedRoll > 0.85) {
         rarityClass = "rarity-gold";
         rarityText = "GOLDEN SSR [LEGENDARY]";
-    } else if (roll > 0.50) {
+    } else if (predeterminedRoll > 0.50) {
         rarityClass = "rarity-silver";
         rarityText = "SILVER BRIGHT [RARE]";
     }
@@ -165,29 +171,8 @@ function buildCardDataAndRender() {
 }
 
 function resetToTitle() {
+    screenDisplay.classList.remove("rainbow-glow-active");
     stateResult.classList.remove("active");
     stateTitle.classList.add("active");
     pressureBar.style.width = "25%";
-}
-// レアリティ判定を「演出の直前」に行うように変更
-function executeRarityUpgradePhase() {
-    // 先にレアリティを計算（演出に反映させるため）
-    const roll = Math.random();
-    const isGold = roll > 0.85;
-
-    statusTicker.innerText = isGold ? "🌈 SSR CONFIRMED!! 🌈" : "OVERCLOCKING CORES!!";
-    
-    // 金なら虹色フラッシュをトリガー
-    if (isGold) {
-        screenDisplay.classList.add("rainbow-glow-active");
-        triggerRainbowFlash(); // 特別な長い虹フラッシュ
-    } else {
-        triggerScreenFlash(); // 通常の白フラッシュ
-    }
-    
-    // 演出終了後にカードを表示
-    setTimeout(() => {
-        buildCardDataAndRender(roll); // 決定済みの乱数を渡す
-        // ... (以下、表示処理)
-    }, 1500);
 }

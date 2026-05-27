@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI特徴発見おみくじ（ガチャ形式）</title>
+    <title>AI SPECIATION -CHARACTERISTIC SELECTOR-</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="steam-container">
-        <div class="gear gear-large" id="gear1"></div>
-        <div class="gear gear-medium" id="gear2"></div>
-        <div class="gear gear-small" id="gear3"></div>
+        <div class="gear gear-large"></div>
+        <div class="gear gear-medium"></div>
+        <div class="gear gear-small"></div>
 
         <div class="gauge-container">
             <div class="gauge-label">STEAM PRESSURE</div>
@@ -34,7 +34,7 @@
 
                     <div id="state-animation" class="screen-state">
                         <div class="steam-vent-effect" id="ventEffect"></div>
-                        <div class="matrix-lines" id="matrixLines"></div>
+                        <div class="matrix-lines"></div>
                         <div class="status-ticker" id="statusTicker">GENERATING QUANTUM STEAM...</div>
                         <div class="loading-gear"></div>
                     </div>
@@ -47,53 +47,27 @@
                                 <div class="card-inner">
                                     <div class="card-header">
                                         <span class="card-serial" id="cardSerial">NO. AI-7749</span>
-                                        <span class="card-rarity" id="cardRarity">GOLDEN SSR</span>
+                                        <span class="card-rarity" id="cardRarity">-</span>
                                     </div>
                                     <div class="card-body">
                                         <div class="ai-avatar-box">
                                             <div class="gear-core"></div>
-                                            <div class="ai-name" id="aiName">GENERATIVE AI CORE</div>
+                                            <div class="ai-name" id="aiName">-</div>
                                         </div>
                                         
                                         <div class="status-list">
                                             <div class="status-item">
                                                 <span class="status-label">思考力</span>
-                                                <span class="status-fortune" id="statFortune1">大吉</span>
+                                                <span class="status-fortune" id="statFortune1">-</span>
                                             </div>
                                             <div class="status-item">
                                                 <span class="status-label">処理速度</span>
-                                                <span class="status-fortune" id="statFortune2">吉</span>
+                                                <span class="status-fortune" id="statFortune2">-</span>
                                             </div>
                                             <div class="status-item">
                                                 <span class="status-label">独自スキル</span>
-                                                <span class="status-fortune" id="statFortune3">中吉</span>
+                                                <span class="status-fortune" id="statFortune3">-</span>
                                             </div>
                                         </div>
                                         
                                         <div class="skill-name-box">
-                                            SKILL: <span id="skillName">【超高度対話】</span>
-                                        </div>
-                                        
-                                        <div class="card-dialogue" id="cardDialogue">
-                                            「本日の私は思考の海を深く泳いでいます。速度は控えめですが、誰も到達できない深淵なる解を導き出せるでしょう。」
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        STEAMPUNK AI APPARATUS v3.0
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="result-actions">
-                            <button id="retryButton" class="steam-btn small-btn">もう一度引く</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
