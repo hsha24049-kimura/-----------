@@ -75,6 +75,9 @@ function startGachaPipeline() {
 
     const progressInterval = setInterval(() => {
         progress += 5;
+        // ゲージの進行度（progress）に合わせて、メーターの針をリアルタイムに揺らす
+document.getElementById("needle1").style.transform = `rotate(${-60 + (progress * 1.5)}deg)`;
+document.getElementById("needle2").style.transform = `rotate(${-40 + (progress * 2) + (Math.random() * 20 - 10)}deg)`; // 針のガタツキ
         pressureBar.style.width = progress + "%";
         
         if (progress === 40 || progress === 70 || progress === 85) {
@@ -114,7 +117,7 @@ function executeRarityUpgradePhase() {
     const isGold = roll > 0.85;
 
     if (isGold) {
-        statusTicker.innerText = "🌈 SSR CONFIRMED!! 🌈";
+        statusTicker.innerText = " SSR CONFIRMED!! ";
         screenDisplay.classList.add("rainbow-glow-active");
         triggerRainbowFlash();
     } else {
@@ -175,4 +178,6 @@ function resetToTitle() {
     stateResult.classList.remove("active");
     stateTitle.classList.add("active");
     pressureBar.style.width = "25%";
+    document.getElementById("needle1").style.transform = "rotate(-60deg)";
+document.getElementById("needle2").style.transform = "rotate(-40deg)";
 }

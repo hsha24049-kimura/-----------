@@ -187,3 +187,90 @@ body {
 .card-dialogue { font-family: var(--font-serif); font-size: 0.68rem; line-height: 1.4; background: rgba(0,0,0,0.3); padding: 6px; border-radius: 4px; flex-grow: 1; overflow-y: auto; text-align: left; border-left: 2px solid var(--copper); }
 .card-footer { font-size: 0.55rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 3px; }
 .result-actions { margin-top: 15px; z-index: 10; }
+/* 1. 全体背景をマルフーシャ風の「油染みのある重厚な鉄板」風に */
+body {
+    background-color: #120d0a;
+    /* 網目（メッシュ）のテクスチャをCSSで表現 */
+    background-image: 
+        radial-gradient(circle at center, rgba(30, 22, 16, 0.4) 0%, #0a0604 100%),
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+}
+
+/* 2. 背景の歯車を「ガチッと噛み合う」位置と回転に修正 */
+.gear-large {
+    width: 280px; height: 280px;
+    top: -40px; left: -40px;
+    border: 6px dashed #3a2b20;
+    animation-duration: 30s;
+}
+
+/* 中歯車を大歯車に噛み合わせる（逆回転） */
+.gear-medium {
+    width: 180px; height: 180px;
+    top: 180px; left: 160px; /* 大歯車のすぐ隣に配置 */
+    bottom: auto; right: auto; /* 位置リセット */
+    border: 5px dashed #423023;
+    animation-duration: 19.2s; /* 歯数比に合わせた絶妙な速度 */
+    animation-direction: reverse; /* 🚨 逆回転で噛み合わせをリアルに！ */
+}
+
+.gear-small {
+    width: 100px; height: 100px;
+    bottom: 40px; right: 40px;
+    border: 4px dashed #2b1f17;
+    animation-duration: 10s;
+}
+
+/* 3. アナログ丸型メーターのラック */
+.analog-meters-rack {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.round-meter {
+    background: linear-gradient(135deg, #2b1e14 0%, #17100a 100%);
+    border: 3px solid #5e4431;
+    border-radius: 50%;
+    width: 70px; height: 70px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6), inset 0 0 10px #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* メーターの文字盤（鈍く光るオレンジのバックライト） */
+.meter-dial {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: #1a0f08;
+    border: 1px solid #3d2a1c;
+    position: relative;
+    box-shadow: inset 0 0 8px rgba(230, 92, 36, 0.3); /* ほのかな発光 */
+}
+
+/* メーターの針 */
+.meter-needle {
+    width: 2px; height: 22px;
+    background: #ff6600;
+    position: absolute;
+    bottom: 50%; left: calc(50% - 1px);
+    transform-origin: bottom center;
+    transform: rotate(-60deg);
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 4px #ff6600;
+}
+
+.meter-label {
+    position: absolute;
+    bottom: -18px;
+    font-size: 0.6rem;
+    color: #8c684d;
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+}
