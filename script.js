@@ -169,3 +169,25 @@ function resetToTitle() {
     stateTitle.classList.add("active");
     pressureBar.style.width = "25%";
 }
+// レアリティ判定を「演出の直前」に行うように変更
+function executeRarityUpgradePhase() {
+    // 先にレアリティを計算（演出に反映させるため）
+    const roll = Math.random();
+    const isGold = roll > 0.85;
+
+    statusTicker.innerText = isGold ? "🌈 SSR CONFIRMED!! 🌈" : "OVERCLOCKING CORES!!";
+    
+    // 金なら虹色フラッシュをトリガー
+    if (isGold) {
+        screenDisplay.classList.add("rainbow-glow-active");
+        triggerRainbowFlash(); // 特別な長い虹フラッシュ
+    } else {
+        triggerScreenFlash(); // 通常の白フラッシュ
+    }
+    
+    // 演出終了後にカードを表示
+    setTimeout(() => {
+        buildCardDataAndRender(roll); // 決定済みの乱数を渡す
+        // ... (以下、表示処理)
+    }, 1500);
+}
